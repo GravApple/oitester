@@ -1,0 +1,38 @@
+!!! 5
+%html
+  %head
+    %meta{:charset => 'utf-8'}
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    %title LocalTester
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-true' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    /[if lt IE 9]
+      %script{:src => 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}
+      %script{:src => 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'}
+  %body
+    .navbar.navbar-default.navbar-fixed-top{:role => 'navigation'}
+      .container
+        .navbar-header
+          %button{:type => 'button', :class => 'navbar-toggle', :'data-toggle' => 'collapse', :'data-target' => '.navbar-collapse'}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'LocalTester', root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li{:class => ('active' if params[:controller] == 'welcome')}= link_to 'Home', root_path
+            %li{:class => ('active' if params[:controller] =~ /^contest/)}= link_to 'Contests', contests_path
+            %li{:class => ('active' if params[:controller] == 'problems')}= link_to 'Problems', problems_path
+            %li{:class => ('active' if params[:controller] == 'submissions')}=link_to 'Submissions', submissions_path
+    .container
+      - if flash[:notice]
+        .alert.alert-success.alert-dismissable
+          %button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert', :'aria-hidden' => 'true'} &times;
+          %p= flash[:notice]
+      - if flash[:alert]
+        .alert.alert-danger.alert-dismissable
+          %button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert', :'aria-hidden' => 'true'} &times;
+          %p= flash[:alert]
+      = yield

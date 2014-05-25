@@ -1,0 +1,19 @@
+= render 'contest/layout'
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Create at
+      %th Data synced?
+      %th Submit
+  %tbody
+    - @problems.each do |problem|
+      %tr
+        %td= link_to problem.id, contest_problem_path(@contest, problem)
+        %td= link_to problem.name, contest_problem_path(@contest, problem)
+        %td= problem.created_at
+        %td
+          = problem.data_synced?
+          = link_to 'Resync', resync_problem_path(problem), method: :post
+        %td= link_to count_contest_submissions_with_hash(@contest, { problem_id: problem.id }), contest_submissions_path_with_hash(@contest, { problem_id: problem.id })

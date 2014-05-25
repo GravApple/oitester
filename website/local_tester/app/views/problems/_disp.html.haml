@@ -1,0 +1,22 @@
+%table.table.table-hover
+  %tr
+    %th Time limit
+    %td= "#{@problem.time_limit} ms"
+  %tr
+    %th Memory limit
+    %td= "#{@problem.memory_limit} mb"
+  %tr
+    %th Case num
+    %td= "#{@problem.case_num}"
+  %tr
+    %th Case score
+    %td= "#{@problem.case_score}"
+- [:description, :input_format, :output_format, :rendered_sample_input, :rendered_sample_output, :hint].each do |sym|
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title= sym.to_s.humanize
+    .panel-body
+      - if sym.to_s =~ /sample/
+        ~ @problem.send(sym).html_safe
+      - else
+        = @problem.send(sym).html_safe

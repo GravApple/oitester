@@ -1,0 +1,28 @@
+= render 'contest/layout'
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Created at
+      %th Problem
+      %th Result
+      %th Total score
+      %th Time
+      %th Memory
+      %th Language
+      %th Code Length
+      %th &nbsp;
+  %tbody
+    - @submissions.each do |submission|
+      - result = submission.loaded_result
+      %tr
+        %td= link_to submission.id, contest_submission_path(@contest, submission)
+        %td= submission.created_at
+        %td= link_to submission.problem.id, contest_problem_path(@contest, submission.problem)
+        %td= submission.result
+        %td= link_to result['totalScore'] || 0, contest_submission_path(@contest, submission)
+        %td= "#{submission.time_cost} ms"
+        %td= "#{submission.memory_cost} kb"
+        %td= link_to submission.language, contest_submission_path(@contest, submission)
+        %td= "#{submission.code.size} B"
+        %td= link_to 'Rejudge', rejudge_contest_submission_path(@contest, submission), method: :post

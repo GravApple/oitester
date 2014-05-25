@@ -1,0 +1,6 @@
+= render 'contest/layout'
+%h3.page-header
+  Submission
+  = "##{@submission.id}"
+  = link_to 'Back', :back, class: 'btn btn-sm btn-default pull-right'
+= render 'submissions/disp'

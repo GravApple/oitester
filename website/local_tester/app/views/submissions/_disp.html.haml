@@ -1,0 +1,21 @@
+~ @submission.rendered_code.html_safe
+%hr
+- result = @submission.loaded_result
+%h3
+  Total score:
+  = result['totalScore'] || 0
+%table.table.table-hover
+  %thead
+    %tr
+      %th Case
+      %th Result
+      %th Time cost
+      %th Memory cost
+  %tbody
+    - result = @submission.loaded_result
+    - result.keys.grep(/^Case/).sort.each_with_index do |kase, index|
+      %tr
+        %td= index
+        %td= result[kase]['Result'][0]
+        %td= "#{result[kase]['Time'][0]} ms"
+        %td= "#{result[kase]['Memory'][0]} kb"

@@ -1,0 +1,7 @@
+%h2.page-header
+  = @contest.name
+  = link_to 'Edit this contest', edit_contest_path(@contest), class: 'btn btn-info pull-right'
+%ul.nav.nav-tabs
+  %li{:class => ('active' if params[:controller] == 'contest/problems')}= link_to 'Problems', contest_problems_path(@contest)
+  %li{:class => ('active' if params[:controller] == 'contest/submissions')}= link_to 'Submissions', contest_submissions_path(@contest)
+%br

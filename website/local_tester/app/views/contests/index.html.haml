@@ -1,0 +1,20 @@
+%h1.page-header
+  Contests
+  = link_to 'New contest', new_contest_path, class: 'btn btn-success pull-right'
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Created at
+      %th &nbsp;
+  %tbody
+    - @contests.each do |contest|
+      %tr
+        %td= link_to contest.id, contest_problems_path(contest)
+        %td= link_to contest.name, contest_problems_path(contest)
+        %td= contest.created_at
+        %td
+          = link_to 'View', contest_problems_path(contest)
+          = link_to 'Edit', edit_contest_path(contest)
+          = link_to 'Delete', contest_path(contest), method: :delete, data: { confirm: 'Are you sure you want to delete this contest?' }

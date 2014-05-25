@@ -1,0 +1,6 @@
+%h2.page-header New contest
+= simple_form_for @contest do |f|
+  = f.input :name, required: true, input_html: { class: 'form-control' }
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

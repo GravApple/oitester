@@ -1,0 +1,13 @@
+= render 'contest/layout'
+%h3.page-header 
+  New submission
+  %small= "Problem ##{@problem.id} - #{@problem.name}"
+  = link_to 'Back to the problem', contest_problem_path(@contest, @problem), class: 'btn btn-default pull-right'
+= simple_form_for [@contest, @problem, @submission] do |f|
+  = f.hidden_field :contest_id
+  = f.label :language, required: true
+  = f.select :language, options_for_select([['C++', 'cpp'], ['C', 'c'], ['Pascal', 'pascal']], 'cpp'), {}, { class: 'form-control' }
+  = f.input :code, input_html: { class: 'form-control', rows: '8' }
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'

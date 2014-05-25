@@ -1,0 +1,28 @@
+%h2.page-header Edit contest
+= simple_form_for @contest do |f|
+  = f.input :name, required: true, input_html: { class: 'form-control' }
+  %hr
+  %h3
+    Problems
+    = link_to 'Add problem', '#problems', class: 'btn btn-success', onclick: 'add_problem()'
+    #problems 
+      - @problems.each do |problem|
+        .form-inline{:id => "problem_#{problem.hash}"}
+          %br
+          %input{:id => "problem_id_#{problem.hash}", :name => "problem_id_#{problem.hash}", :type => 'text', :placeholder => 'Problem id', :class => 'form-control', :value => problem.id}
+          %a{:id => "rm_problem_#{problem.hash}", :onclick => "rm_problem(\"#{problem.hash}\")", :class => 'btn btn-danger'} Delete
+          %br
+  %br
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-default'
+:javascript
+  var cnt = 0;
+  function add_problem() {
+    $("#problems").append("<div class='form-inline' id='problem_" + cnt + "'></div>");
+    $("#problem_" + cnt).append("<br /><input id='problem_id_" + cnt + "' name='problem_id_" + cnt + "' type='text' placeholder='Problem id' class='form-control' />");
+    $("#problem_" + cnt).append(" <a id='rm_problem_" + cnt + "' onclick='rm_problem(" + cnt + ")' class='btn btn-danger'>Delete</a><br />");
+    cnt = cnt + 1;
+  }
+  function rm_problem(id) {
+    $("#problem_" + id).remove();
+  }

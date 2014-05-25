@@ -1,0 +1,7 @@
+= render 'contest/layout'
+%h3.page-header
+  = @problem.name
+  .btn-group
+    = link_to 'Submit', new_contest_problem_submission_path(@contest, @problem), class: 'btn btn-success'
+    = link_to 'Status', contest_submissions_path_with_hash(@contest, { problem_id: @problem.id }), class: 'btn btn-info'
+= render 'problems/disp'

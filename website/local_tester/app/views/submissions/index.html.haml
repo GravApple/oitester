@@ -1,0 +1,28 @@
+%h1.page-header Submissions
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Created at
+      %th Problem
+      %th Result
+      %th Total score
+      %th Time
+      %th Memory
+      %th Language
+      %th Code Length
+      %th &nbsp;
+  %tbody
+    - @submissions.each do |submission|
+      - result = submission.loaded_result
+      %tr
+        %td= link_to submission.id, submission_path(submission)
+        %td= submission.created_at
+        %td= link_to submission.problem.id, problem_path(submission.problem)
+        %td= submission.result
+        %td= link_to result['totalScore'] || 0, submission_path(submission)
+        %td= "#{submission.time_cost} ms"
+        %td= "#{submission.memory_cost} kb"
+        %td= link_to submission.language, submission_path(submission)
+        %td= "#{submission.code.size} B"
+        %td= link_to 'Delete', submission_path(submission), method: :delete, data: { confirm: 'Are you sure you want to delete this submission?' }

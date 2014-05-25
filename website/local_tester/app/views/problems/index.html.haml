@@ -1,0 +1,24 @@
+%h1.page-header
+  Problems
+  = link_to 'New problem', new_problem_path, class: 'btn btn-success pull-right'
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Created at
+      %th Data synced?
+      %th &nbsp;
+  %tbody
+    - @problems.each do |problem|
+      %tr
+        %td= link_to problem.id, problem_path(problem)
+        %td= link_to problem.name, problem_path(problem)
+        %td= problem.created_at
+        %td
+          = problem.data_synced?
+          = link_to 'Resync', resync_problem_path(problem), method: :post
+        %td
+          = link_to 'View', problem_path(problem)
+          = link_to 'Edit', edit_problem_path(problem)
+          = link_to 'Delete', problem_path(problem), method: :delete, data: { confirm: 'Are you sure you want to delete this problem?' }
